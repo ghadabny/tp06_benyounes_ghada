@@ -1,0 +1,37 @@
+<h1>Boutique</h1>
+
+<form>
+  <label for="login">Login :</label>
+  <input [(ngModel)]="login" name="login" /><br />
+
+  <label for="password">Password :</label>
+  <input [(ngModel)]="password" type="password" name="password" /><br />
+</form>
+
+<br />
+<button (click)="connexion()">Connexion</button>
+
+<hr />
+
+<div *ngIf="cnx">
+  <p>Bonjour {{ nom }} - {{ prenom }}</p>
+
+  <h2>Catalogue produits</h2>
+  <hr />
+
+  <!-- Champ de recherche -->
+  <input #inputSearch type="text" class="form-control" placeholder="Recherche..." (input)="searchProducts(inputSearch.value)" />
+
+  <div *ngIf="searchFailed">
+    Désolé, les produits ne peuvent pas être chargés.
+  </div>
+
+  <hr />
+
+  <!-- Affichage des résultats de la recherche -->
+  <div *ngIf="produits$ | async as produits">
+    <div *ngFor="let p of produits" class="product-item">
+      <p> {{ p.titre }} - {{ p.prix }} €</p>
+    </div>
+  </div>
+</div>
